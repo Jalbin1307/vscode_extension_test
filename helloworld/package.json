@@ -22,6 +22,12 @@
 					"alt":"markdown.showPreviewToSide",
 					"group": "navigation"
 				}
+			],
+			"explorer/context": [
+				{
+					"command": "helloworld.helloWorld",
+					"when": "resourceLangId == onnx"
+				}
 			]
 		},
 		"commands": [
@@ -30,6 +36,7 @@
 				"title": "Hello World"
 			}
 		]
+
 	
 	},
 	"scripts": {
