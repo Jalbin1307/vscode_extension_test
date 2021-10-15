@@ -1,67 +1,71 @@
 {
-	"name": "helloworld",
-	"displayName": "HelloWorld",
-	"description": "",
-	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.61.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:helloworld.helloWorld",
-		"onCommand:helloworld.txtconvert"
-
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"menus": {
-			"editor/title": [
-				{
-					"when": "resourceLangId == markdown",
-					"command": "markdown.showPreview",
-					"alt": "markdown.showPreviewToSide",
-					"group": "navigation"
-				}
-			],
-			"explorer/context": [
-				{
-					"command": "helloworld.helloWorld",
-					"when": "resourceLangId == onnx"
-				}
-			]
-		},
-		"commands": [
-			{
-				"command": "helloworld.helloWorld",
-				"title": "TT : Hello World"
-			},
-			{
-				"command": "helloworld.txtconvert",
-				"title": "Convert Text"
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/glob": "^7.1.4",
-		"@types/mocha": "^9.0.0",
-		"@types/node": "14.x",
-		"@types/vscode": "^1.61.0",
-		"@typescript-eslint/eslint-plugin": "^4.31.1",
-		"@typescript-eslint/parser": "^4.31.1",
-		"@vscode/test-electron": "^1.6.2",
-		"eslint": "^7.32.0",
-		"glob": "^7.1.7",
-		"mocha": "^9.1.1",
-		"typescript": "^4.4.4"
-	}
+  "name": "helloworld",
+  "displayName": "HelloWorld",
+  "description": "This is the README for your extension \"helloworld\". After writing up a brief description, we recommend including the following sections.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.61.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:helloworld.helloWorld",
+    "onCommand:helloworld.txtconvert"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceLangId == markdown",
+          "command": "markdown.showPreview",
+          "alt": "markdown.showPreviewToSide",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "helloworld.helloWorld",
+          "when": "resourceLangId == onnx"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "helloworld.helloWorld",
+        "title": "TT : Hello World"
+      },
+      {
+        "command": "helloworld.txtconvert",
+        "title": "Convert Text"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "14.x",
+    "@types/vscode": "^1.61.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "@vscode/test-electron": "^1.6.2",
+    "eslint": "^7.32.0",
+    "glob": "^7.1.7",
+    "mocha": "^9.1.1",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "socket.io": "^4.3.0"
+  },
+  "author": "",
+  "license": "ISC"
 }
