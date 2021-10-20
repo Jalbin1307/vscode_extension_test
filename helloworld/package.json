@@ -27,15 +27,14 @@
       ],
       "explorer/context": [
         {
-          "command": "helloworld.helloWorld",
-          "when": "resourceLangId == onnx"
+          "command": "helloworld.helloWorld"
         }
       ]
     },
     "commands": [
       {
         "command": "helloworld.request",
-        "title": "TT : Request"
+        "title": "ONNX-CONNX : Server Request"
       },
       {
         "command": "helloworld.helloWorld",

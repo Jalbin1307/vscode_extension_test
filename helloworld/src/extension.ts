@@ -4,42 +4,25 @@ import * as vscode from 'vscode';
 import { request } from 'http';
 import { createWriteStream } from 'fs';
  
-const fileStream = createWriteStream('..\\test\\request2.txt');
-
-
-// import { NgModule } from '@angular/core';
-// import { BrowserModule } from '@angular/platform-browser';
-// import { HttpClientModule } from '@angular/common/http';
-
-
-// @NgModule({
-// 	imports:[
-// 		BrowserModule,
-// 		HttpClientModule,
-// 	],
-// 	declarations:[
-// 		AppComponent,
-// 	],
-// 	bootstrap: [AppComponent]
-// })
-// export class AppModule{}
+const fileStream = createWriteStream('.\request2.txt');   // Extension 사용자의 폴더에 저장할 수 있는 방법 찾아봐야함 +현재는 절대 경로로만 가능
 
 
 export function activate(context: vscode.ExtensionContext) {
 	
-	console.log('Congratulations, your extension "helloworld123" is now active!');	
+	console.log('Extension is now active!');	
 
 
 	let disposable = vscode.commands.registerCommand('helloworld.helloWorld', () => {
-		vscode.window.showInformationMessage('Hello World from 123HelloWorld456!');
+		vscode.window.showInformationMessage('Hello World');
 	});
 	context.subscriptions.push(disposable);
 
-	let jinreq = vscode.commands.registerCommand('helloworld.request', () => {
+	// GET method를 사용해 서버와 통신
+	let filereq = vscode.commands.registerCommand('helloworld.request', () => {
 		const req = request(
 			{
-			  host: 'jsonplaceholder.typicode.com',
-			  path: '/todos/1',
+			  host: 'mysite-xyu.run.goorm.io',
+			  port: '80',
 			  method: 'GET',
 			},
 			response => {
@@ -49,10 +32,11 @@ export function activate(context: vscode.ExtensionContext) {
 		  );
 		  req.end();
 	});
-	context.subscriptions.push(jinreq);
+	context.subscriptions.push(filereq);
 
+	
 	let convert = vscode.commands.registerCommand('helloworld.txtconvert', () => {
-		vscode.window.showInformationMessage('1231 convert!');
+		vscode.window.showInformationMessage('Text convert!');
     
     });
 	context.subscriptions.push(convert);
