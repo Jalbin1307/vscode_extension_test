@@ -1,10 +1,12 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import {Uri} from 'vscode';
 import { request } from 'http';
 import { createWriteStream } from 'fs';
  
 const fileStream = createWriteStream('.\request2.txt');   // Extension 사용자의 폴더에 저장할 수 있는 방법 찾아봐야함 +현재는 절대 경로로만 가능
+
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -35,8 +37,13 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(filereq);
 
 	
-	let convert = vscode.commands.registerCommand('helloworld.txtconvert', () => {
-		vscode.window.showInformationMessage('Text convert!');
+	let convert = vscode.commands.registerCommand('helloworld.txtconvert', (args : any) => {
+		const filePath: string | undefined = args.file;
+		const file = filePath ? Uri.file(filePath) : undefined;
+
+		//const fileStream = createWriteStream(filePath+"\\request.txt");
+
+		// vscode.window.showInformationMessage(fileP);
     
     });
 	context.subscriptions.push(convert);

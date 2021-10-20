@@ -28,6 +28,9 @@
       "explorer/context": [
         {
           "command": "helloworld.helloWorld"
+        },
+        {
+          "command": "helloworld.txtconvert"
         }
       ]
     },
