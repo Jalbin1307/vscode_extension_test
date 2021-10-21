@@ -38,9 +38,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 	
 	let convert = vscode.commands.registerCommand('helloworld.txtconvert', (args : any) => {
-		const filePath: string | undefined = args.file;
+		const filePath: string | undefined = args.filePath;
 		const file = filePath ? Uri.file(filePath) : undefined;
-
+		vscode.window.showInformationMessage('File Path : '+args);
 		//const fileStream = createWriteStream(filePath+"\\request.txt");
 
 		// vscode.window.showInformationMessage(fileP);
