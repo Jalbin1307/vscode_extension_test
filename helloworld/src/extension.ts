@@ -36,6 +36,24 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 	context.subscriptions.push(req);
 
+	// POST method를 사용해 서버와 통신
+	let req2 = vscode.commands.registerCommand('helloworld.request2', () =>{
+		const req = request(
+			{
+				host : '127.0.0.1',
+				port : '8000',
+				method : 'POST',
+			},
+			response => {
+				vscode.window.showInformationMessage('POST Request');
+			}
+		);
+		req.end();
+	});
+	context.subscriptions.push(req2);
+
+
+
 
 	
 	let convert = vscode.commands.registerCommand('helloworld.txtconvert', (args : any) => {

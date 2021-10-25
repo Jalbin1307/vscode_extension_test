@@ -12,7 +12,8 @@
   "activationEvents": [
     "onCommand:helloworld.helloWorld",
     "onCommand:helloworld.txtconvert",
-    "onCommand:helloworld.request"
+    "onCommand:helloworld.request",
+    "onCommand:helloworld.request2"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -42,6 +43,10 @@
       {
         "command": "helloworld.helloWorld",
         "title": "TTT : Hello World"
+      },
+      {
+        "command": "helloworld.request2",
+        "title": "TT : Post"
       },
       {
         "command": "helloworld.txtconvert",
