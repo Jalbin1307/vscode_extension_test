@@ -20,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(disposable);
 
 	// GET method를 사용해 서버와 통신
-	let filereq = vscode.commands.registerCommand('helloworld.request', () => {
+	let req = vscode.commands.registerCommand('helloworld.request', () => {
 		const req = request(
 			{
 			  host: 'mysite-xyu.run.goorm.io',
@@ -28,13 +28,14 @@ export function activate(context: vscode.ExtensionContext) {
 			  method: 'GET',
 			},
 			response => {
-			  response.pipe(fileStream);
+			  // response.pipe(fileStream);
 			  vscode.window.showInformationMessage('HTTP Request!');
 			}
 		  );
 		  req.end();
 	});
-	context.subscriptions.push(filereq);
+	context.subscriptions.push(req);
+
 
 	
 	let convert = vscode.commands.registerCommand('helloworld.txtconvert', (args : any) => {
