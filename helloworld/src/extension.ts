@@ -1,10 +1,23 @@
 import * as vscode from 'vscode';
 import {Uri} from 'vscode';
 import { request } from 'http';
+import * as FormData from 'form-data';
+import { createReadStream } from 'fs';
+import { privateEncrypt } from 'crypto';
+
+const readStream = createReadStream('C:\Users\USER\Downloads\mnist-8.onnx');
  
+const form = new FormData();
+form.append('file', readStream);
+form.append('firstName', 'Marcin');
+form.append('lastName', 'Wanago');
+
+
+
 export function activate(context: vscode.ExtensionContext) {
 	
 	console.log('Extension is now active!');	
+	console.log(form.getHeaders());
 
 	let disposable = vscode.commands.registerCommand('helloworld.helloWorld', () => {
 		vscode.window.showInformationMessage('Hello World');
@@ -17,7 +30,7 @@ export function activate(context: vscode.ExtensionContext) {
 			{
 			  host: 'mysite-xyu.run.goorm.io',
 			  port: '80',
-			  method: 'GET',
+			  method: 'GET'
 			},
 			response => {
 			  // response.pipe(fileStream);
@@ -35,11 +48,18 @@ export function activate(context: vscode.ExtensionContext) {
 				host : '127.0.0.1',
 				port : '8000',
 				method : 'POST',
+				path : '/rest_api_test/',
+				headers : {
+					'file' : 'C:/Users/USER/Downloads/mnist-8.onnx'
+				}
+				//headers : form.getHeaders(),			
+				
 			},
 			response => {
-				vscode.window.showInformationMessage('POST Request');
+				vscode.window.showInformationMessage("Test");
 			}
 		);
+		form.pipe(req);
 		req.end();
 	});
 	context.subscriptions.push(req2);
