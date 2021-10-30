@@ -4,13 +4,14 @@ import { request } from 'http';
 import * as FormData from 'form-data';
 import { createReadStream } from 'fs';
 import { privateEncrypt } from 'crypto';
+import axios from "axios";
 
-const readStream = createReadStream('C:\Users\USER\Downloads\mnist-8.onnx');
- 
+const readStream = createReadStream('C:\\Users\\USER\\Downloads\\mnist-8.onnx');
+
 const form = new FormData();
 form.append('file', readStream);
-form.append('firstName', 'Marcin');
-form.append('lastName', 'Wanago');
+form.append('firstName', 'onnx');
+form.append('lastName', 'file');
 
 
 
@@ -63,6 +64,8 @@ export function activate(context: vscode.ExtensionContext) {
 		req.end();
 	});
 	context.subscriptions.push(req2);
+
+	// await axios.post(url, body, {headers});
 
 
 
