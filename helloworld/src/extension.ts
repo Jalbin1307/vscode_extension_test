@@ -2,26 +2,34 @@ import * as vscode from 'vscode';
 import {Uri} from 'vscode';
 import { request } from 'http';
 import * as FormData from 'form-data';
-import { createReadStream } from 'fs';
+import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
 import { privateEncrypt } from 'crypto';
-import axios from "axios";
+const multer = require('multer');
 
-const readStream = createReadStream('C:\\Users\\USER\\Downloads\\mnist-8.onnx');
 
-const form = new FormData();
-form.append('file', readStream);
-form.append('firstName', 'onnx');
-form.append('lastName', 'file');
+const fileStream = createWriteStream('C://Users//USER//Downloads//file.txt');
 
 
 
 export function activate(context: vscode.ExtensionContext) {
 	
 	console.log('Extension is now active!');	
-	console.log(form.getHeaders());
 
 	let disposable = vscode.commands.registerCommand('helloworld.helloWorld', () => {
-		vscode.window.showInformationMessage('Hello World');
+		const req = request({
+			host : '127.0.0.1',
+			port : '8000',
+			method : 'GET',
+			path : '/rest_api_test/',
+		},
+		response => {
+			response.pipe(fileStream);
+		}
+		);
+		req.end();
+		
+
+		vscode.window.showInformationMessage('Hello1 World');
 	});
 	context.subscriptions.push(disposable);
 
@@ -41,26 +49,25 @@ export function activate(context: vscode.ExtensionContext) {
 		  req.end();
 	});
 	context.subscriptions.push(req);
-
 	// POST method를 사용해 서버와 통신
 	let req2 = vscode.commands.registerCommand('helloworld.request2', () =>{
+		const readStream = createReadStream('C://Users//USER//Downloads//model.connx');
+		const form = new FormData();
+		form.append('file', readStream);
+		form.append('name','test');
 		const req = request(
 			{
 				host : '127.0.0.1',
 				port : '8000',
 				method : 'POST',
 				path : '/rest_api_test/',
-				headers : {
-					'file' : 'C:/Users/USER/Downloads/mnist-8.onnx'
-				}
-				//headers : form.getHeaders(),			
-				
+				headers : form.getHeaders()
 			},
 			response => {
 				vscode.window.showInformationMessage("Test");
 			}
 		);
-		form.pipe(req);
+		form.pipe(fileStream);
 		req.end();
 	});
 	context.subscriptions.push(req2);
