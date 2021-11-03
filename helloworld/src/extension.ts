@@ -17,8 +17,8 @@ export function activate(context: vscode.ExtensionContext) {
 
 	let disposable = vscode.commands.registerCommand('helloworld.helloWorld', () => {
 		const req = request({
-			host : '127.0.0.1',
-			port : '8000',
+			host : 'mysite-tscvl.run.goorm.io',
+			port : '80',
 			method : 'GET',
 			path : '/rest_api_test/',
 		},
@@ -29,7 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
 		req.end();
 		
 
-		vscode.window.showInformationMessage('Hello1 World');
+		vscode.window.showInformationMessage('Hello11 World');
 	});
 	context.subscriptions.push(disposable);
 
@@ -51,14 +51,14 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(req);
 	// POST method를 사용해 서버와 통신
 	let req2 = vscode.commands.registerCommand('helloworld.request2', () =>{
-		const readStream = createReadStream('C://Users//USER//Downloads//model.connx');
+		const readStream = createReadStream('C:\\Users\\USER\\Downloads\\model.connx');
 		const form = new FormData();
 		form.append('file', readStream);
-		form.append('name','test');
+		// form.append('name','test');
 		const req = request(
 			{
-				host : '127.0.0.1',
-				port : '8000',
+				host : 'mysite-tscvl.run.goorm.io',
+				port : '80',
 				method : 'POST',
 				path : '/rest_api_test/',
 				headers : form.getHeaders()
