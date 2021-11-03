@@ -1,9 +1,12 @@
 import * as vscode from 'vscode';
 import {Uri} from 'vscode';
-import { request } from 'http';
+import { request } from 'https';
+//import { request } from 'http';
 import * as FormData from 'form-data';
 import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
 import { privateEncrypt } from 'crypto';
+
+
 const multer = require('multer');
 
 
@@ -42,6 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
 			  method: 'GET'
 			},
 			response => {
+
 			  // response.pipe(fileStream);
 			  vscode.window.showInformationMessage('HTTP Request!');
 			}
@@ -56,17 +60,34 @@ export function activate(context: vscode.ExtensionContext) {
 		form.append('file', readStream);
 		// form.append('name','test');
 		const req = request(
-			{
-				host : 'mysite-tscvl.run.goorm.io',
-				port : '80',
-				method : 'POST',
-				path : '/rest_api_test/',
-				headers : form.getHeaders()
-			},
-			response => {
-				vscode.window.showInformationMessage("Test");
-			}
-		);
+				{
+					host : 'mysite-tscvl.run.goorm.io',
+					port : '80',
+					method : 'POST',
+					path : '/rest_api_test/',
+					// eslint-disable-next-line @typescript-eslint/naming-convention
+					headers : {"Content-Type" : "multipart/form-data"}			
+				},
+				response => {
+					vscode.window.showInformationMessage("Test");
+				}
+			);
+
+
+
+		//기존 사용
+		// const req = request(
+		// 	{
+		// 		host : 'mysite-tscvl.run.goorm.io',
+		// 		port : '80',
+		// 		method : 'POST',
+		// 		path : '/rest_api_test/',
+		// 		headers : {"Content-Type" : "form-data"}			
+		// 	},
+		// 	response => {
+		// 		vscode.window.showInformationMessage("Test");
+		// 	}
+		// );
 		form.pipe(fileStream);
 		req.end();
 	});

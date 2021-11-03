@@ -19,7 +19,7 @@ export function activate(context: ExtensionContext) {
 		form.append('file', article);
 		axios({
 			method:"post",
-			url:'https://mysite-tscvl.run.goorm.io/rest_api_test/',
+			url:'mysite-tscvl.run.goorm.io/rest_api_test/',
 			data:form,
 			// eslint-disable-next-line @typescript-eslint/naming-convention
 			headers:{"Content-Type":"multipart/form-data"},
@@ -45,7 +45,7 @@ export function activate(context: ExtensionContext) {
 		// 	method:'GET',
 		// });
 		axios.post(
-			'https://mysite-tscvl.run.goorm.io/rest_api_test/',
+			'mysite-tscvl.run.goorm.io/rest_api_test/',
 			form,
 			{headers: {
 			// eslint-disable-next-line @typescript-eslint/naming-convention
