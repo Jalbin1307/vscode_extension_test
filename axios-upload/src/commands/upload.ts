@@ -2,9 +2,16 @@ import { window, workspace, ExtensionContext, Uri } from "vscode";
 import * as fs from "fs-extra";
 import { sendFormData } from "../utils/sendFormData";
 
-export async function upload(context: ExtensionContext, items: Uri[], opts: any = {}) {
+export async function upload(opts:any={}) {
     let axiosRes;
-
-    axiosRes = await sendFormData();
+    const wsConfig = workspace.getConfiguration("axios-upload");
+    
+    axiosRes = await sendFormData({
+        ...wsConfig,
+        ...opts,
+      });
+    
+    window.showInformationMessage("뭐야");
+    return axiosRes;
 
 }
