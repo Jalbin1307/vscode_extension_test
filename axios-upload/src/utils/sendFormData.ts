@@ -9,7 +9,7 @@ export async function sendFormData(wsConfig: WorkspaceConfiguration) {
 
     const form = new FormData();
     const filePath= 'C://Users//USER//Downloads//file.txt';
-    const url = '127.0.0.1:8000/rest_api_test/';
+    const url = 'http://127.0.0.1:8000/rest_api_test/';
     form.append('file',fs.createReadStream(filePath));
 
     const axiosRequestConfig = {
