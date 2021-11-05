@@ -4,7 +4,7 @@ import { upload } from "./commands/upload";
 import * as FormData from 'form-data';
 import * as fs from "fs-extra";
 import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
-import * as $ from "jquery";
+//import * as $ from "jquery";
 
 // const multer = require("multer");
 // const up = multer({ dest: 'C://Users//USER//Downloads//file.txt' });
