@@ -31,7 +31,7 @@ export function activate(context: ExtensionContext) {
 			url:'mysite-tscvl.run.goorm.io/rest_api_test/',
 			data:form,
 			// eslint-disable-next-line @typescript-eslint/naming-convention
-			headers:{"Content-Type":"multipart/form-data"},
+			//headers:{"Content-Type":"multipart/form-data"},
 		})
 		.then(function (response){
 			console.log(response);
