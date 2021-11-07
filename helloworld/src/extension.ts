@@ -7,9 +7,6 @@ import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs
 import { privateEncrypt } from 'crypto';
 
 
-const multer = require('multer');
-
-
 const fileStream = createWriteStream('C://Users//USER//Downloads//file.txt');
 
 
@@ -65,8 +62,9 @@ export function activate(context: vscode.ExtensionContext) {
 					port : '80',
 					method : 'POST',
 					path : '/rest_api_test/',
+
 					// eslint-disable-next-line @typescript-eslint/naming-convention
-					headers : {"Content-Type" : "multipart/form-data"}			
+					//headers : {"Content-Type" : "multipart/form-data"}			
 				},
 				response => {
 					vscode.window.showInformationMessage("Test");
