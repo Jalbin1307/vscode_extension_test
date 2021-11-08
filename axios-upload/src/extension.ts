@@ -5,7 +5,7 @@ import * as FormData from 'form-data';
 import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
 import * as fs from 'fs';
 import * as path from 'path';
-//import * as $ from "jquery";
+
 
 // const multer = require("multer");
 // const up = multer({ dest: 'C://Users//USER//Downloads//file.txt' });
@@ -46,11 +46,12 @@ export function activate(context: ExtensionContext) {
 
 	let disposable = commands.registerCommand('axios-upload.helloWorld', () => {
 		//const readStream = createReadStream('C://Users//USER//Downloads//model.connx');
+		const mac = createReadStream('/Users/hongjin-u/mnist-8.onnx');
 		const article = createReadStream('C://Users//USER//Downloads//mnist-8.onnx','utf-8');
 		const exampleFile = fs.createReadStream(path.join(__filename, "C://Users//USER//mnist-8.onnx"));
 
 		const form = new FormData();
-		form.append('file', exampleFile);
+		form.append('file', mac);
 		form.append('name','Tom');
 
 		// var data = {
