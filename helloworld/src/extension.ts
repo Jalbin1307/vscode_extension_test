@@ -13,7 +13,6 @@ const fileStream = createWriteStream('C://Users//USER//Downloads//file.txt');
 
 export function activate(context: vscode.ExtensionContext) {
 	
-	console.log('Extension is now active!');	
 
 	let disposable = vscode.commands.registerCommand('helloworld.helloWorld', () => {
 		const req = request({
