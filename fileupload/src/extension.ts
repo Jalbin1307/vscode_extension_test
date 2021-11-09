@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as FormData from 'form-data';
 import { createReadStream} from 'fs';
+import axios from 'axios';
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -38,14 +39,15 @@ export function activate(context: vscode.ExtensionContext) {
 		// const headers = {'userID':'1234'};
 		// var bodyFromData = new FormData();
 		// //await bodyFromData.append('processID':'1234');
-		// bodyFromData.append('file', createReadStream("/Users/hongjin-u/Documents/libe.xlsx"), "libe.xlsx");
-		// const url = "127.0.0.1:8000/rest_api_test/";
+		// bodyFromData.append('foo','123');
+		// // bodyFromData.append('file', createReadStream("/Users/hongjin-u/Documents/libe.xlsx"), "libe.xlsx");
+		// const url = "https://mysite-tscvl.run.goorm.io/";
 
 		// axios.post(url,
 		// 	 bodyFromData,
 		// 	 {headers:{'Content-Type': 'multipart/form-data'}});
 
-		//console.log(result);
+		// console.log(req);
 
 
 		vscode.window.showInformationMessage('Request!');

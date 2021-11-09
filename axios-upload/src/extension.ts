@@ -3,7 +3,7 @@ import { commands, ExtensionContext, Uri, window } from "vscode";
 import { upload } from "./commands/upload";
 import * as FormData from 'form-data';
 import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
-import * as fs from 'fs';
+import * as fs from "fs-extra";
 import * as path from 'path';
 //import * as $ from "jquery";
 
@@ -50,22 +50,16 @@ export function activate(context: ExtensionContext) {
 		const exampleFile = fs.createReadStream(path.join(__filename, "C://Users//USER//mnist-8.onnx"));
 
 		const form = new FormData();
-		form.append('file', exampleFile);
-		form.append('name','Tom');
+		form.append('file', article);
 
 		// var data = {
 		// 	'content':form
 		// };
 		
-		// const req = axios({
-		// 	url: 'http://127.0.0.1:8000/rest_api_test/',
-		// 	method:'GET',
-		// });
 		axios.post(
 			'http://mysite-tscvl.run.goorm.io/rest_api_test/',
 			form,
-			{headers: {"content-type" : "multipart/form-data",
-						'filefield':'file'}},
+			{headers: {...form.getHeaders()}},
 			
 			);
 
