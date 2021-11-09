@@ -1,7 +1,6 @@
 import * as vscode from 'vscode';
 import {Uri} from 'vscode';
-import { request } from 'https';
-//import { request } from 'http';
+import { request } from 'http';
 import * as FormData from 'form-data';
 import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
 import { privateEncrypt } from 'crypto';
