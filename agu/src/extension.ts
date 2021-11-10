@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 // import fetch, { Headers, RequestInit } from "node-fetch";
-import FormData = require("form-data");
+import * as FormData from 'form-data';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Meteor } from 'meteor/meteor';
