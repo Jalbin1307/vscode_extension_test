@@ -54,15 +54,14 @@ export function activate(context: vscode.ExtensionContext) {
 		const form = new FormData();
 		form.append('file', readStream);
 		// form.append('name','test');
+	
 		const req = request(
 				{
 					host : 'mysite-tscvl.run.goorm.io',
 					port : '80',
 					method : 'POST',
 					path : '/rest_api_test/',
-
-					// eslint-disable-next-line @typescript-eslint/naming-convention
-					//headers : {"Content-Type" : "multipart/form-data"}			
+					headers : form.getHeaders()			
 				},
 				response => {
 					vscode.window.showInformationMessage("Test");
