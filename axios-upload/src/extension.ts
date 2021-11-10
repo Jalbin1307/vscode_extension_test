@@ -32,11 +32,9 @@ export function activate(context: ExtensionContext) {
 		form.append('file', article);
 		form.pipe(writeStream);
 
-
 		// var fdata = {
 		// 	form			
 		// };
-
 		axios({
 			method:"post",
 			url:'https://mysite-tscvl.run.goorm.io/rest_api_test/',
@@ -67,8 +65,7 @@ export function activate(context: ExtensionContext) {
 
 		form.append('file', mac);
 		form.append('name','Tom');
-
-
+		
 		// var data = {
 		// 	'content':form
 		// };

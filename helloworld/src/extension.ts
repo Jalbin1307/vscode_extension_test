@@ -52,8 +52,8 @@ export function activate(context: vscode.ExtensionContext) {
 	let req2 = vscode.commands.registerCommand('helloworld.request2', () =>{
 		const readStream = createReadStream('C:\\Users\\USER\\Downloads\\model.connx');
 		const form = new FormData();
-		form.append('file', readStream);
-		// form.append('name','test');
+		// form.append('file', readStream);
+		form.append('name','test');
 	
 		const req = request(
 				{
@@ -61,29 +61,14 @@ export function activate(context: vscode.ExtensionContext) {
 					port : '80',
 					method : 'POST',
 					path : '/rest_api_test/',
-					headers : form.getHeaders()			
+					headers : form.getHeaders(),		
 				},
 				response => {
 					vscode.window.showInformationMessage("Test");
 				}
 			);
+		form.pipe(req);
 
-
-
-		//기존 사용
-		// const req = request(
-		// 	{
-		// 		host : 'mysite-tscvl.run.goorm.io',
-		// 		port : '80',
-		// 		method : 'POST',
-		// 		path : '/rest_api_test/',
-		// 		headers : {"Content-Type" : "form-data"}			
-		// 	},
-		// 	response => {
-		// 		vscode.window.showInformationMessage("Test");
-		// 	}
-		// );
-		form.pipe(fileStream);
 		req.end();
 	});
 	context.subscriptions.push(req2);
