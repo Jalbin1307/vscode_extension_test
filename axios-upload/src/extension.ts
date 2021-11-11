@@ -16,10 +16,28 @@ import { Http2ServerRequest } from "http2";
 export function activate(context: ExtensionContext) {
 	
 	let areq = commands.registerCommand('axios-upload.ajax', () => {
-		// $.ajax({
-		// 	url:'https://mysite-tscvl.run.goorm.io/rest_api_test/',
-		// 	method:"GET"
-		// });
+		const article = createReadStream('C:/Users/USER/Downloads/mnist-8.onnx','utf-8');
+		const dt = fs.readFileSync('C:/Users/USER/Downloads/mnist-8.onnx', 'utf8');
+		const exampleFile = fs.readFileSync("C:/Users/USER/mnist-8.onnx");
+
+		const form = new FormData();
+		form.append('file',dt);
+		// form.append('foo', '123');
+		// form.append('file', article, {filepath:'C:/Users/USER/Downloads', filename:'mnist-8.onnx'});
+		// form.append('file', exampleFile);
+		//form.pipe
+		axios
+  		.post('https://mysite-tscvl.run.goorm.io/rest_api_test/', 
+		   form ,
+		  {headers: {'Content-Type': 'multipart/form-data'}}
+		  )
+  		.then(res => {
+    		console.log(`statusCode: ${res.status}`);
+    		console.log(res);
+  		})
+  		.catch(error => {
+			console.error(error);
+		})
 		window.showInformationMessage('Hello World areq');
 
 	});
