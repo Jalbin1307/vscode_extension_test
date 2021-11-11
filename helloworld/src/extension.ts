@@ -52,7 +52,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let req2 = vscode.commands.registerCommand('helloworld.request2', () =>{
 		const readStream = createReadStream('C:\\Users\\USER\\Downloads\\model.connx');
 		const form = new FormData();
-		// form.append('file', readStream);
+		form.append('file', readStream);
 		form.append('name','test');
 	
 		const req = request(
@@ -64,10 +64,11 @@ export function activate(context: vscode.ExtensionContext) {
 					headers : form.getHeaders(),		
 				},
 				response => {
-					vscode.window.showInformationMessage("Test");
+					vscode.window.showInformationMessage("TT : Post");
 				}
 			);
-		form.pipe(req);
+		req.write(form);
+		//form.pipe(req);
 
 		req.end();
 	});

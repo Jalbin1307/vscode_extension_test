@@ -18,16 +18,16 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('agu.helloWorld', () => {
 		const exampleFile = fs.createReadStream(path.join(__filename, "C://Users//USER//mnist-8.onnx"));
 		
-		const form = new FormData();
-		form.append("file", exampleFile);
+		const formData = new FormData();
+		formData.append("file", exampleFile);
 
-		var options = {content:form};
+		var options = {content:formData};
 
 		const controller = new AbortController();
 
 		const requestOptions: RequestInit = {
     		method: "POST",
-    		body: form,
+    		body: formData,
 			port:80,
   		};
 

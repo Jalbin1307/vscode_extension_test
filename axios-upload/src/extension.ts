@@ -27,21 +27,25 @@ export function activate(context: ExtensionContext) {
 	let req = commands.registerCommand('axios-upload.upload', () => {
 		const article = createReadStream('C://Users//USER//Downloads//mnist-8.onnx','utf-8');
 		const writeStream = createWriteStream('C://Users//USER//Downloads//file1.txt');
-		const form = new FormData();
+		var form = new FormData();
 		// form.append('foo', '123');
 		form.append('file', article);
 		form.pipe(writeStream);
 
+		const formHeaders = form.getHeaders();
+		formHeaders["Content-Length"] = form.getLengthSync();
+
+		const config = {headers: formHeaders};
+
 		// var fdata = {
 		// 	form			
 		// };
+		window.showInformationMessage('ONNX UPLOAD TEST');
 		axios({
 			method:"post",
 			url:'https://mysite-tscvl.run.goorm.io/rest_api_test/',
 			data :form,
-			//data:fdata,
-			// eslint-disable-next-line @typescript-eslint/naming-convention
-			headers: {...form.getHeaders()},
+			headers: form.getHeaders()
 		})
 		.then(function (response){
 			console.log(response);
@@ -59,12 +63,10 @@ export function activate(context: ExtensionContext) {
 		const article = createReadStream('C://Users//USER//Downloads//mnist-8.onnx','utf-8');
 		const exampleFile = fs.createReadStream(path.join(__filename, "C://Users//USER//mnist-8.onnx"));
 
-		const form = new FormData();
+		const formData = new FormData();
 
-		form.append('file', article);
+		formData.append('file', article, {filepath:'C:/Users/USER/Downloads', filename:'mnist-8.onnx'});
 
-		form.append('file', mac);
-		form.append('name','Tom');
 		
 		// var data = {
 		// 	'content':form
@@ -72,8 +74,8 @@ export function activate(context: ExtensionContext) {
 		
 		axios.post(
 			'http://mysite-tscvl.run.goorm.io/rest_api_test/',
-			form,
-			{headers: {...form.getHeaders()}},
+			formData,
+			{headers: formData.getHeaders()},
 			
 			);
 
