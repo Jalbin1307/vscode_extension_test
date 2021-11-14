@@ -1,5 +1,5 @@
 import axios from "axios";
-import { commands, ExtensionContext, Uri, window } from "vscode";
+import { commands, ExtensionContext, Uri, window , languages, TextDocument, Hover} from "vscode";
 import { upload } from "./commands/upload";
 import * as FormData from 'form-data';
 import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
@@ -16,20 +16,22 @@ import { Http2ServerRequest } from "http2";
 export function activate(context: ExtensionContext) {
 	
 	let areq = commands.registerCommand('axios-upload.ajax', () => {
-		const article = createReadStream('C:/Users/USER/Downloads/mnist-8.onnx','utf-8');
+		const article = createReadStream('C://Users//USER//Downloads//mnist-8.onnx','utf-8');
 		const dt = fs.readFileSync('C:/Users/USER/Downloads/mnist-8.onnx', 'utf8');
 		const exampleFile = fs.readFileSync("C:/Users/USER/mnist-8.onnx");
 
+
 		const form = new FormData();
+		// form.append('files[]', fs.createReadStream('C:/Users/USER/Downloads/mnist-8.onnx'), 'mnist-8.onnx')
 		form.append('file',dt);
-		// form.append('foo', '123');
-		// form.append('file', article, {filepath:'C:/Users/USER/Downloads', filename:'mnist-8.onnx'});
-		// form.append('file', exampleFile);
+		form.append('foo', '123');
+		form.append('file', article, {filepath:'C:/Users/USER/Downloads', filename:'mnist-8.onnx'});
+		form.append('file', exampleFile);
 		//form.pipe
 		axios
   		.post('https://mysite-tscvl.run.goorm.io/rest_api_test/', 
 		   form ,
-		  {headers: {'Content-Type': 'multipart/form-data'}}
+		  {headers: form.getHeaders()}
 		  )
   		.then(res => {
     		console.log(`statusCode: ${res.status}`);
