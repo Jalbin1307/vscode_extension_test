@@ -6,7 +6,7 @@ import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs
 import { privateEncrypt } from 'crypto';
 
 
-const fileStream = createWriteStream('C://Users//USER//Downloads//file.txt');
+
 
 
 
@@ -14,6 +14,16 @@ export function activate(context: vscode.ExtensionContext) {
 	
 
 	let disposable = vscode.commands.registerCommand('helloworld.helloWorld', () => {
+
+		if(vscode.workspace.workspaceFolders !== undefined){
+			let wf = vscode.workspace.workspaceFolders[0].uri.path;
+    		let f = vscode.workspace.workspaceFolders[0].uri.fsPath;
+
+			const message = `YOUR-EXTENSION: folder: ${wf} - ${f}` ;
+
+			vscode.window.showInformationMessage(message);
+		const fileStream = createWriteStream(`${wf}/file.txt`);
+		
 		const req = request({
 			host : 'mysite-tscvl.run.goorm.io',
 			port : '80',
@@ -25,7 +35,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 		);
 		req.end();
-		
+		}
 
 		vscode.window.showInformationMessage('Hello11 World');
 	});
