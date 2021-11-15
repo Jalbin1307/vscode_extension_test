@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import {Uri} from 'vscode';
+import {Uri,ExtensionContext} from 'vscode';
 import { request } from 'http';
 import * as FormData from 'form-data';
 import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
@@ -13,13 +13,17 @@ import { privateEncrypt } from 'crypto';
 export function activate(context: vscode.ExtensionContext) {
 	
 
-	let disposable = vscode.commands.registerCommand('helloworld.helloWorld', () => {
+	let disposable = vscode.commands.registerCommand('helloworld.helloWorld', (context: ExtensionContext, items: Uri[]) => {
 
+		//let ww = context.storageUri?.path;
+		
+		let www = items[0].path;
 		if(vscode.workspace.workspaceFolders !== undefined){
 			let wf = vscode.workspace.workspaceFolders[0].uri.path;
     		let f = vscode.workspace.workspaceFolders[0].uri.fsPath;
+			let ff = vscode.workspace.getConfiguration;
 
-			const message = `YOUR-EXTENSION: folder: ${wf} - ${f}` ;
+			const message = `YOUR-EXTENSION: folder: ${wf} - ${f} : ${ff}` ;
 
 			vscode.window.showInformationMessage(message);
 		const fileStream = createWriteStream(`${wf}/file.txt`);
