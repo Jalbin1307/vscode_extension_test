@@ -18,6 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
 		//let ww = context.storageUri?.path;
 		
 		let www = items[0].path;
+		
 		const form = new FormData();
 		form.append('file', createReadStream(www));
 		form.append('test','app');
