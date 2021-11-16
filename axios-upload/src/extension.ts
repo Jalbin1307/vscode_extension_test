@@ -1,18 +1,9 @@
-import axios from "axios";
+// import axios from "axios";
 import { commands, ExtensionContext, Uri, window , languages, TextDocument, Hover} from "vscode";
 import { upload } from "./commands/upload";
-// import * as FormData from 'form-data';
+import * as FormData from 'form-data';
 import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
-// import * as fs from "fs-extra";
 import * as path from 'path';
-
-var fs = require('fs');
-var https = require('https');
-var FormData = require('form-data');
-// var axios = require('axios');
-// const multer = require("multer");
-// const up = multer({ dest: 'C://Users//USER//Downloads//file.txt' });
-// axios.defaults.headers.common['X-CSRF-TOKEN'] = "6ccgtjclyMiAYMQpblICoweJrnfvPUYCArGwWynQfomk8JJM4gN3TR49mSkwr3si";
 
 
 export function activate(context: ExtensionContext) {
@@ -25,22 +16,6 @@ export function activate(context: ExtensionContext) {
 		const data = new FormData();
 		data.append('file', createReadStream(www));
 
-		const header: any = data.getHeaders();
-    	const reqData = axios({
-      		method: 'post',
-      		url: 'https://mysite-tscvl.run.goorm.io/rest_api_test/',
-      		data: data,
-      		headers: header,
-      		httpsAgent: new https.Agent({
-        	rejectUnauthorized: false
-      }),
-      maxContentLength: Infinity,
-      maxBodyLength: Infinity,
-      onUploadProgress: (progressEvent: any) => {
-        const complete = (progressEvent.loaded / progressEvent.total * 100 | 0) + '%';
-        console.log('upload percent: ' + complete);
-      }
-    }).then((response: any) => {});
 
 		//stack overflow code
 		// var config = {
@@ -90,18 +65,18 @@ export function activate(context: ExtensionContext) {
 		// 	form			
 		// };
 		window.showInformationMessage('ONNX UPLOAD TEST');
-		axios({
-			method:"post",
-			url:'https://mysite-tscvl.run.goorm.io/rest_api_test/',
-			data :form,
-			headers: form.getHeaders()
-		})
-		.then(function (response){
-			console.log(response);
-		})
-		.catch(function (response){
-			console.log(response);
-		});
+		// axios({
+		// 	method:"post",
+		// 	url:'https://mysite-tscvl.run.goorm.io/rest_api_test/',
+		// 	data :form,
+		// 	headers: form.getHeaders()
+		// })
+		// .then(function (response){
+		// 	console.log(response);
+		// })
+		// .catch(function (response){
+		// 	console.log(response);
+		// });
 	});
 
 	//context.subscriptions.push(uploadByMenu);
@@ -110,7 +85,7 @@ export function activate(context: ExtensionContext) {
 		//const readStream = createReadStream('C://Users//USER//Downloads//model.connx');
 		const mac = createReadStream('/Users/hongjin-u/mnist-8.onnx');
 		const article = createReadStream('C://Users//USER//Downloads//mnist-8.onnx','utf-8');
-		const exampleFile = fs.createReadStream(path.join(__filename, "C://Users//USER//mnist-8.onnx"));
+		const exampleFile = createReadStream(path.join(__filename, "C://Users//USER//mnist-8.onnx"));
 
 		const formData = new FormData();
 
@@ -121,12 +96,12 @@ export function activate(context: ExtensionContext) {
 		// 	'content':form
 		// };
 		
-		axios.post(
-			'http://mysite-tscvl.run.goorm.io/rest_api_test/',
-			formData,
-			{headers: formData.getHeaders()},
+		// axios.post(
+		// 	'http://mysite-tscvl.run.goorm.io/rest_api_test/',
+		// 	formData,
+		// 	{headers: formData.getHeaders()},
 			
-			);
+		// 	);
 
 		window.showInformationMessage('Hello World');
 	});
