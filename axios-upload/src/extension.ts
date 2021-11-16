@@ -1,13 +1,15 @@
 import axios from "axios";
 import { commands, ExtensionContext, Uri, window , languages, TextDocument, Hover} from "vscode";
 import { upload } from "./commands/upload";
-import * as FormData from 'form-data';
+// import * as FormData from 'form-data';
 import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
-import * as fs from "fs-extra";
+// import * as fs from "fs-extra";
 import * as path from 'path';
-import { Http2ServerRequest } from "http2";
 
-
+var fs = require('fs');
+var https = require('https');
+var FormData = require('form-data');
+// var axios = require('axios');
 // const multer = require("multer");
 // const up = multer({ dest: 'C://Users//USER//Downloads//file.txt' });
 // axios.defaults.headers.common['X-CSRF-TOKEN'] = "6ccgtjclyMiAYMQpblICoweJrnfvPUYCArGwWynQfomk8JJM4gN3TR49mSkwr3si";
@@ -15,31 +17,58 @@ import { Http2ServerRequest } from "http2";
 
 export function activate(context: ExtensionContext) {
 	
-	let areq = commands.registerCommand('axios-upload.ajax', () => {
-		const article = createReadStream('C://Users//USER//Downloads//mnist-8.onnx','utf-8');
-		const dt = fs.readFileSync('C:/Users/USER/Downloads/mnist-8.onnx', 'utf8');
-		const exampleFile = fs.readFileSync("C:/Users/USER/mnist-8.onnx");
+	let areq = commands.registerCommand('axios-upload.ajax', (context: ExtensionContext, items: Uri[]) => {
+		
+		
+
+		let www = items[0].path;
+		const data = new FormData();
+		data.append('file', createReadStream(www));
+
+		const header: any = data.getHeaders();
+    	const reqData = axios({
+      		method: 'post',
+      		url: 'https://mysite-tscvl.run.goorm.io/rest_api_test/',
+      		data: data,
+      		headers: header,
+      		httpsAgent: new https.Agent({
+        	rejectUnauthorized: false
+      }),
+      maxContentLength: Infinity,
+      maxBodyLength: Infinity,
+      onUploadProgress: (progressEvent: any) => {
+        const complete = (progressEvent.loaded / progressEvent.total * 100 | 0) + '%';
+        console.log('upload percent: ' + complete);
+      }
+    }).then((response: any) => {});
+
+		//stack overflow code
+		// var config = {
+		// 	method: 'post',
+		// 	url: 'https://mysite-tscvl.run.goorm.io/rest_api_test/',
+		// 	headers: { 
+		// 	  'content-type': 'multipart/form-data', 
+		// 	  ...data.getHeaders()
+		// 	},
+		// 	data : data
+		//   };
+
+		// axios(config);
 
 
-		const form = new FormData();
-		// form.append('files[]', fs.createReadStream('C:/Users/USER/Downloads/mnist-8.onnx'), 'mnist-8.onnx')
-		form.append('file',dt);
-		form.append('foo', '123');
-		form.append('file', article, {filepath:'C:/Users/USER/Downloads', filename:'mnist-8.onnx'});
-		form.append('file', exampleFile);
-		//form.pipe
-		axios
-  		.post('https://mysite-tscvl.run.goorm.io/rest_api_test/', 
-		   form ,
-		  {headers: form.getHeaders()}
-		  )
-  		.then(res => {
-    		console.log(`statusCode: ${res.status}`);
-    		console.log(res);
-  		})
-  		.catch(error => {
-			console.error(error);
-		})
+		// 기존 코드
+		// axios
+  		// .post('https://mysite-tscvl.run.goorm.io/rest_api_test/', 
+		//    form ,
+		//   {headers: form.getHeaders()}
+		//   )
+  		// .then(res => {
+    	// 	console.log(`statusCode: ${res.status}`);
+    	// 	console.log(res);
+  		// })
+  		// .catch(error => {
+		// 	console.error(error);
+		// })
 		window.showInformationMessage('Hello World areq');
 
 	});

@@ -16,6 +16,13 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "axios-upload.ajax"
+				}
+			]
+		},
 		"commands": [
 			{
 				"command": "axios-upload.helloWorld",
