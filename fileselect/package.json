@@ -10,14 +10,21 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:fileselect.helloWorld"
+    "onCommand:fileselect.onnxupload"
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "fileselect.onnxupload"
+        }
+      ]
+    },
     "commands": [
       {
-        "command": "fileselect.helloWorld",
-        "title": "Hello World"
+        "command": "fileselect.onnxupload",
+        "title": "File select : ONNX UPLOAD"
       }
     ]
   },
@@ -43,6 +50,7 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "compile": "^0.0.2"
   }
 }
