@@ -18,6 +18,9 @@ export function activate(context: vscode.ExtensionContext) {
 		//let ww = context.storageUri?.path;
 		
 		let www = items[0].path;
+		const form = new FormData();
+		form.append('file', createReadStream(www));
+		form.append('test','app');
 		if(vscode.workspace.workspaceFolders !== undefined){
 			let wf = vscode.workspace.workspaceFolders[0].uri.path;
     		let f = vscode.workspace.workspaceFolders[0].uri.fsPath;
