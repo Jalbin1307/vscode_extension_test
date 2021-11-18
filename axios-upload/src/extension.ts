@@ -4,7 +4,7 @@ import { upload } from "./commands/upload";
 import * as FormData from 'form-data';
 import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
 import * as path from 'path';
-
+var axios = require('axios');
 
 export function activate(context: ExtensionContext) {
 	
@@ -18,17 +18,17 @@ export function activate(context: ExtensionContext) {
 
 
 		//stack overflow code
-		// var config = {
-		// 	method: 'post',
-		// 	url: 'https://mysite-tscvl.run.goorm.io/rest_api_test/',
-		// 	headers: { 
-		// 	  'content-type': 'multipart/form-data', 
-		// 	  ...data.getHeaders()
-		// 	},
-		// 	data : data
-		//   };
+		var config = {
+			method: 'post',
+			url: 'https://mysite-tscvl.run.goorm.io/rest_api_test/',
+			headers: { 
+			  'content-type': 'multipart/form-data', 
+			  ...data.getHeaders()
+			},
+			data : data
+		  };
 
-		// axios(config);
+		axios(config);
 
 
 		// 기존 코드
@@ -44,7 +44,7 @@ export function activate(context: ExtensionContext) {
   		// .catch(error => {
 		// 	console.error(error);
 		// })
-		window.showInformationMessage('Hello World areq');
+		// window.showInformationMessage('Hello World areq');
 
 	});
 
