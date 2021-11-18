@@ -9,8 +9,8 @@ var FileUploader = {
 	apiEndpoint: "https://mysite-tscvl.run.goorm.io/rest_api_test/",
 	fileField: "file",
 	formData: {	
-		'__manifest' : {},
-				'__workspace' : {} },
+		__manifest : {},
+				__workspace : {} },
   };
 
 export function activate(context: vscode.ExtensionContext) {
@@ -33,7 +33,8 @@ export function activate(context: vscode.ExtensionContext) {
 
 		let www = items[0].path;
 		const form = new FormData();
-		form.append(FileUploader.fileField, createReadStream(www));
+		// form.append('FileUploader.fileField', createReadStream(www));
+		form.append('file', createReadStream(www));
 		
 
 		const axiosRequestConfig = {
