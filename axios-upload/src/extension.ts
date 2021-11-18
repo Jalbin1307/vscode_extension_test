@@ -4,6 +4,7 @@ import { upload } from "./commands/upload";
 // import * as FormData from 'form-data';
 // import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
 import * as path from 'path';
+import { format } from "path";
 var axios = require('axios');
 var fs = require('fs');
 var FormData = require('form-data');
@@ -16,6 +17,9 @@ export function activate(context: ExtensionContext) {
 
 		let www = items[0].path;
 		const data = new FormData();
+		const stream = fs.createReadStream(www);
+
+
 		data.append('file', fs.createReadStream(www));
 
 
