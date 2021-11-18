@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import {Uri,ExtensionContext,workspace} from 'vscode';
-import FormData = require('form-data');
-import { createReadStream } from 'fs';
+import * as fs from "fs-extra";
+import * as FormData from "form-data";
 import axios from 'axios';
 
 
@@ -34,7 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
 		let www = items[0].path;
 		const form = new FormData();
 		// form.append('FileUploader.fileField', createReadStream(www));
-		form.append('file', createReadStream(www));
+		form.append('file', fs.createReadStream(www));
 		
 
 		const axiosRequestConfig = {
