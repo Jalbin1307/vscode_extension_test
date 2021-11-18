@@ -1,10 +1,12 @@
 // import axios from "axios";
 import { commands, ExtensionContext, Uri, window , languages, TextDocument, Hover} from "vscode";
 import { upload } from "./commands/upload";
-import * as FormData from 'form-data';
-import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
+// import * as FormData from 'form-data';
+// import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
 import * as path from 'path';
 var axios = require('axios');
+var fs = require('fs');
+var FormData = require('form-data');
 
 export function activate(context: ExtensionContext) {
 	
@@ -14,7 +16,7 @@ export function activate(context: ExtensionContext) {
 
 		let www = items[0].path;
 		const data = new FormData();
-		data.append('file', createReadStream(www));
+		data.append('file', fs.createReadStream(www));
 
 
 		//stack overflow code
@@ -28,7 +30,13 @@ export function activate(context: ExtensionContext) {
 			data : data
 		  };
 
-		axios(config);
+		axios(config)
+		.then(function (response: { data: any; }) {
+			console.log(JSON.stringify(response.data));
+		  })
+		  .catch(function (error: any) {
+			console.log(error);
+		  });;
 
 
 		// 기존 코드
@@ -49,8 +57,8 @@ export function activate(context: ExtensionContext) {
 	});
 
 	let req = commands.registerCommand('axios-upload.upload', () => {
-		const article = createReadStream('C://Users//USER//Downloads//mnist-8.onnx','utf-8');
-		const writeStream = createWriteStream('C://Users//USER//Downloads//file1.txt');
+		const article = fs.createReadStream('C://Users//USER//Downloads//mnist-8.onnx','utf-8');
+		const writeStream = fs.createWriteStream('C://Users//USER//Downloads//file1.txt');
 		var form = new FormData();
 		// form.append('foo', '123');
 		form.append('file', article);
@@ -83,9 +91,9 @@ export function activate(context: ExtensionContext) {
 
 	let disposable = commands.registerCommand('axios-upload.helloWorld', () => {
 		//const readStream = createReadStream('C://Users//USER//Downloads//model.connx');
-		const mac = createReadStream('/Users/hongjin-u/mnist-8.onnx');
-		const article = createReadStream('C://Users//USER//Downloads//mnist-8.onnx','utf-8');
-		const exampleFile = createReadStream(path.join(__filename, "C://Users//USER//mnist-8.onnx"));
+		const mac = fs.createReadStream('/Users/hongjin-u/mnist-8.onnx');
+		const article = fs.createReadStream('C://Users//USER//Downloads//mnist-8.onnx','utf-8');
+		const exampleFile = fs.createReadStream(path.join(__filename, "C://Users//USER//mnist-8.onnx"));
 
 		const formData = new FormData();
 
