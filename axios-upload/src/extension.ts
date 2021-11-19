@@ -1,40 +1,59 @@
 // import axios from "axios";
 import { commands, ExtensionContext, Uri, window , languages, TextDocument, Hover} from "vscode";
 import { upload } from "./commands/upload";
-// import * as FormData from 'form-data';
 // import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
 import * as path from 'path';
-import { format } from "path";
+
+import { sendFormData } from "./utils/sendFormData";
 var axios = require('axios');
 var fs = require('fs');
+
 var FormData = require('form-data');
 
 export function activate(context: ExtensionContext) {
 	
-	let areq = commands.registerCommand('axios-upload.ajax', (context: ExtensionContext, items: Uri[]) => {
+	let areq = commands.registerCommand('axios-upload.ajax', async (context: ExtensionContext ,items: Uri[]) => {
 		
 		
 
 		let www = items[0].path;
 		const data = new FormData();
-		const stream = fs.createReadStream(www);
+		
+		//const stream = fs.createReadStream(www);
+		
+		// const DT = sendFormData(items[0]);
+		// console.log(DT);
+		
+		// stream.on('readable', ()=>{
+		// 	console.log('readable:')
+		// 	data.append('file', stream);
+		// 	console.log('123');
+		// });
+		// stream.on('end', () => {
+		// 	console.log('end')
+		// });
+
+		
 
 
-		data.append('file', fs.createReadStream(www));
+
+		//console.log(stream)
 
 
 		//stack overflow code
 		var config = {
 			method: 'post',
-			url: 'https://mysite-tscvl.run.goorm.io/rest_api_test/',
+			//url: 'https://mysite-tscvl.run.goorm.io/rest_api_test/',
+			url : 'http://127.0.0.1:8000/rest_api_test/',
 			headers: { 
 			  'content-type': 'multipart/form-data', 
 			  ...data.getHeaders()
 			},
-			data : data
+			data : await sendFormData(items[0]),
+
 		  };
 
-		axios(config)
+		await axios(config)
 		.then(function (response: { data: any; }) {
 			console.log(JSON.stringify(response.data));
 		  })
