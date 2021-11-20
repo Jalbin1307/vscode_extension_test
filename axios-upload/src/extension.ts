@@ -1,24 +1,22 @@
 // import axios from "axios";
-import { commands, ExtensionContext, Uri, window , languages, TextDocument, Hover} from "vscode";
+import { commands, ExtensionContext, Uri} from "vscode";
 import { upload } from "./commands/upload";
-// import { appendFile, createReadStream, createWriteStream, WriteStream } from 'fs';
-import * as path from 'path';
-
-import { sendFormData } from "./utils/sendFormData";
-var axios = require('axios');
-var fs = require('fs');
-
-var FormData = require('form-data');
 
 export function activate(context: ExtensionContext) {
 	
-	let areq = commands.registerCommand('axios-upload.ajax', async (context: ExtensionContext ,items: Uri[]) => {
-		
+	const uploadByMenu = commands.registerCommand('axios-upload.ajax',  (uri : Uri, items: Uri[]) => upload(context, items || [uri])); 
+	context.subscriptions.push(uploadByMenu);
+}
+
+	//{
 		
 
-		let www = items[0].path;
-		const data = new FormData();
+		// let www = items[0].path;
+		// const data = new FormData();
+		// let axiosRes = sendFormData(items[0]);
+
 		
+
 		//const stream = fs.createReadStream(www);
 		
 		// const DT = sendFormData(items[0]);
@@ -41,25 +39,25 @@ export function activate(context: ExtensionContext) {
 
 
 		//stack overflow code
-		var config = {
-			method: 'post',
-			//url: 'https://mysite-tscvl.run.goorm.io/rest_api_test/',
-			url : 'http://127.0.0.1:8000/rest_api_test/',
-			headers: { 
-			  'content-type': 'multipart/form-data', 
-			  ...data.getHeaders()
-			},
-			data : await sendFormData(items[0]),
+		// var config = {
+		// 	method: 'post',
+		// 	//url: 'https://mysite-tscvl.run.goorm.io/rest_api_test/',
+		// 	url : 'http://127.0.0.1:8000/rest_api_test/',
+		// 	headers: { 
+		// 	  'content-type': 'multipart/form-data', 
+		// 	  ...data.getHeaders()
+		// 	},
+		// 	data : await sendFormData(items[0]),
 
-		  };
+		//   };
 
-		await axios(config)
-		.then(function (response: { data: any; }) {
-			console.log(JSON.stringify(response.data));
-		  })
-		  .catch(function (error: any) {
-			console.log(error);
-		  });;
+		// await axios(config)
+		// .then(function (response: { data: any; }) {
+		// 	console.log(JSON.stringify(response.data));
+		//   })
+		//   .catch(function (error: any) {
+		// 	console.log(error);
+		//   });;
 
 
 		// 기존 코드
@@ -77,67 +75,69 @@ export function activate(context: ExtensionContext) {
 		// })
 		// window.showInformationMessage('Hello World areq');
 
-	});
+	// });
 
-	let req = commands.registerCommand('axios-upload.upload', () => {
-		const article = fs.createReadStream('C://Users//USER//Downloads//mnist-8.onnx','utf-8');
-		const writeStream = fs.createWriteStream('C://Users//USER//Downloads//file1.txt');
-		var form = new FormData();
-		// form.append('foo', '123');
-		form.append('file', article);
-		form.pipe(writeStream);
+// 	context.subscriptions.push(uploadByMenu);
 
-		const formHeaders = form.getHeaders();
-		formHeaders["Content-Length"] = form.getLengthSync();
+// 	let req = commands.registerCommand('axios-upload.upload', () => {
+// 		const article = fs.createReadStream('C://Users//USER//Downloads//mnist-8.onnx','utf-8');
+// 		const writeStream = fs.createWriteStream('C://Users//USER//Downloads//file1.txt');
+// 		var form = new FormData();
+// 		// form.append('foo', '123');
+// 		form.append('file', article);
+// 		form.pipe(writeStream);
 
-		const config = {headers: formHeaders};
+// 		const formHeaders = form.getHeaders();
+// 		formHeaders["Content-Length"] = form.getLengthSync();
 
-		// var fdata = {
-		// 	form			
-		// };
-		window.showInformationMessage('ONNX UPLOAD TEST');
-		// axios({
-		// 	method:"post",
-		// 	url:'https://mysite-tscvl.run.goorm.io/rest_api_test/',
-		// 	data :form,
-		// 	headers: form.getHeaders()
-		// })
-		// .then(function (response){
-		// 	console.log(response);
-		// })
-		// .catch(function (response){
-		// 	console.log(response);
-		// });
-	});
+// 		const config = {headers: formHeaders};
 
-	//context.subscriptions.push(uploadByMenu);
+// 		// var fdata = {
+// 		// 	form			
+// 		// };
+// 		window.showInformationMessage('ONNX UPLOAD TEST');
+// 		// axios({
+// 		// 	method:"post",
+// 		// 	url:'https://mysite-tscvl.run.goorm.io/rest_api_test/',
+// 		// 	data :form,
+// 		// 	headers: form.getHeaders()
+// 		// })
+// 		// .then(function (response){
+// 		// 	console.log(response);
+// 		// })
+// 		// .catch(function (response){
+// 		// 	console.log(response);
+// 		// });
+// 	});
 
-	let disposable = commands.registerCommand('axios-upload.helloWorld', () => {
-		//const readStream = createReadStream('C://Users//USER//Downloads//model.connx');
-		const mac = fs.createReadStream('/Users/hongjin-u/mnist-8.onnx');
-		const article = fs.createReadStream('C://Users//USER//Downloads//mnist-8.onnx','utf-8');
-		const exampleFile = fs.createReadStream(path.join(__filename, "C://Users//USER//mnist-8.onnx"));
+// 	//context.subscriptions.push(uploadByMenu);
 
-		const formData = new FormData();
+// 	let disposable = commands.registerCommand('axios-upload.helloWorld', () => {
+// 		//const readStream = createReadStream('C://Users//USER//Downloads//model.connx');
+// 		const mac = fs.createReadStream('/Users/hongjin-u/mnist-8.onnx');
+// 		const article = fs.createReadStream('C://Users//USER//Downloads//mnist-8.onnx','utf-8');
+// 		const exampleFile = fs.createReadStream(path.join(__filename, "C://Users//USER//mnist-8.onnx"));
 
-		formData.append('file', article, {filepath:'C:/Users/USER/Downloads', filename:'mnist-8.onnx'});
+// 		const formData = new FormData();
+
+// 		formData.append('file', article, {filepath:'C:/Users/USER/Downloads', filename:'mnist-8.onnx'});
 
 		
-		// var data = {
-		// 	'content':form
-		// };
+// 		// var data = {
+// 		// 	'content':form
+// 		// };
 		
-		// axios.post(
-		// 	'http://mysite-tscvl.run.goorm.io/rest_api_test/',
-		// 	formData,
-		// 	{headers: formData.getHeaders()},
+// 		// axios.post(
+// 		// 	'http://mysite-tscvl.run.goorm.io/rest_api_test/',
+// 		// 	formData,
+// 		// 	{headers: formData.getHeaders()},
 			
-		// 	);
+// 		// 	);
 
-		window.showInformationMessage('Hello World');
-	});
+// 		window.showInformationMessage('Hello World');
+// 	});
 
-	context.subscriptions.push(disposable);
-}
+// 	context.subscriptions.push(disposable);
+// }
 
 export function deactivate() {}
