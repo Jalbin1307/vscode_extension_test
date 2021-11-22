@@ -12,7 +12,7 @@ export async function upload(context: ExtensionContext, items: Uri[], opts: any 
     let filePath = items[0].path;
 
     // axiosRes = await sendFormData(filePath,resources);
-    const stream = await sendFormData(filePath, resources);
+    let stream = await sendFormData(filePath, resources);
     console.log(stream);
     console.log('123');
 }
