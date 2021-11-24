@@ -8,7 +8,7 @@ export function activate(context: ExtensionContext) {
 	console.log("EXTENSION");
 	context.subscriptions.push(uploadByMenu);
 }
-
+export function deactivate() {}
 	//{
 		
 
@@ -141,4 +141,4 @@ export function activate(context: ExtensionContext) {
 // 	context.subscriptions.push(disposable);
 // }
 
-export function deactivate() {}
+
