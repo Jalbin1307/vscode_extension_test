@@ -12,7 +12,8 @@
 	"activationEvents": [
 		"onCommand:axios-upload.helloWorld",
 		"onCommand:axios-upload.upload",
-		"onCommand:axios-upload.ajax"
+		"onCommand:axios-upload.ajax",
+		"onCommand:axios-upload.ajaxx"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -20,6 +21,9 @@
 			"explorer/context": [
 				{
 					"command": "axios-upload.ajax"
+				},
+				{
+					"command": "axios-upload.ajaxx"
 				}
 			]
 		},
@@ -27,6 +31,10 @@
 			{
 				"command": "axios-upload.helloWorld",
 				"title": "axios : Hello World"
+			},
+			{
+				"command": "axios-upload.ajaxx",
+				"title": "AJAXX"
 			},
 			{
 				"command": "axios-upload.upload",
