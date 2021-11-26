@@ -5,8 +5,9 @@ import { Stream } from "stream";
 import * as FormData from "form-data";
 import axios from "axios";
 import { axiospost } from "../utils/axiosPost";
+import { ReadStream } from "fs";
 
-export function upload(context: ExtensionContext, items: Uri[], opts: any = {}) {
+export async function upload(context: ExtensionContext, items: Uri[], opts: any = {}) {
     let axiosRes;
     const wsConfig = workspace.getConfiguration("axios-upload");
     
@@ -16,51 +17,118 @@ export function upload(context: ExtensionContext, items: Uri[], opts: any = {}) 
 
     const form = new FormData();
     const resources = items.map((uri) => uri.path);
-    
+
+
     // const st = async ()=>{
     //     return fs.createReadStream(filePath);
     // };
-    const stReturn = async () => {
-        const stream = await sendFormData(filePath,resources);
-        // return await sendFormData(filePath,resources);
-        console.log("STREAM 받아옴");
-        console.log(stream);
-        form.append('file',stream);
-        console.log(form);
-        return stream;
-    };
 
-    // let stream = await sendFormData(filePath, resources);
-    // const stream : Stream  = fs.createReadStream(filePath);
-    stReturn().then(value=>{
-        console.log(value);
-        form.append('file',value);
-        console.log("return");
+    // const stReturn = async () => {
+    //     const stream = await st();
+    //     console.log(stream);
+    //     return stream;
+    // };
+    
+    const stream : ReadStream  = fs.createReadStream(filePath);
+
+
+    setTimeout(()=>{
+        console.log(stream.bytesRead);
+        if (stream.bytesRead > 0){
+            form.append('file',fs.createReadStream(filePath));
+            
+            //axios.post(url, form, axiosRequestConfig);
+            console.log(form);
+        }
+        console.log("stream");
         console.log(form);
-        return value;
-        
-        // console.log(value);
+    },3000);
+    setTimeout(()=>{
         const axiosRequestConfig = {
-            // headers: {...form.getHeaders() },
-            //timeout: 5000,
+            headers: {...form.getHeaders() },
+            setTimeout : 6000
           };
-        //const res = axios.post(url, value, axiosRequestConfig);
-        // console.log(form);
-        //axios.post(url, form, axiosRequestConfig);
-        //const res2 = axios.post(url, value, axiosRequestConfig);
-    });
+        // axios.post(url, form, axiosRequestConfig);
+    },5000);
+    console.log("1243");
 
-    console.log("123");
+
+    // stReturn().then(value=>{
+    //     // console.log(value);
+    //     // form.append('file',value);
+        
+    //     // const res = axios.post(url, value, axiosRequestConfig);
+    //     // console.log(form);
+    //     // const res2 = axios.post(url, value, axiosRequestConfig);
+    // });
+
+
+    // async function appendfile(stream : ReadStream) {
+    //     form.append('file',stream);
+    //     console.log("appendfile called");
+    //     console.log(stream.bytesRead);
+    //     return form;
+    // }
+
+    // async function getfile() {
+    //     const87\] stm = fs.createReadStream(filePath);
+    //     con98sole.log("getfile called");
+    //     return stm;        
+    // }
+
+    // async function pickFile() {
+    //     const stream = await getfile();
+    //     console.log(stream);
+    //     console.log(stream.bytesRead);
+    //     const form = await appendfile(stream);
+    //     console.log(form);
+
+    //     // await form.append('file', stream);
+    //     // console.log(form);
+
+    //     // if (stream.bytesRead > 0){
+    //     //     const form = await appendfile(stream);
+    //     // }
+    //     // else{
+    //     //     console.log(stream.bytesRead);
+    //     // }
+
+    //     const axiosRequestConfig = {
+    //         headers: {...form.getHeaders() },
+    //         // timeout: 5000,
+    //       };
+    //     // setTimeout(()=>axios.post(url, form, axiosRequestConfig),5000);
+    //     return stream;
+    // }
+    // pickFile();
+    // .then(appendfile)
+    // .then(console.log);
+
+    
+
+    // console.log("123");
 }
 
-export async function select(context:ExtensionContext, items: Uri[]) {
-    try{
-        const stream = await upload(context,items);
-        console.log("select stream");
-        console.log(stream);
-
-    }catch(e){
-        console.log("ERROR");
-    }
     
+
+
+export async function select(context:ExtensionContext, items: Uri[]) {
+    
+    let filePath = items[0].path;
+
+    const url = 'http://127.0.0.1:8000/rest_api_test/';
+
+    async function getfile() {
+        const stm = fs.createReadStream(filePath,{emitClose:false});
+        return stm;        
+    }
+
+    async function pickFile() {
+        const stream = await getfile();
+        console.log(stream);
+        await axiospost(url, stream);
+    }
+
+    pickFile();
+ 
 }
