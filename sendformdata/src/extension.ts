@@ -12,13 +12,12 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('sendformdata.helloWorld', (uri: Uri, items : Uri[]) => {
 
 		var formData = new FormData();
-		// formData.append("foo","123");
-		// formData.append("acount",123456);
+
 		formData.append("file",fs.createReadStream(items[0].path));
 		console.log(formData);
 
-		//http://127.0.0.1:8000/
-		//https://mysite-tscvl.run.goorm.io/
+		//Local host :        http://127.0.0.1:8000/
+		//ONNX-CONNX Server : https://mysite-tscvl.run.goorm.io/
 		formData.submit('http://127.0.0.1:8000/rest_api_test/', function(err, res){
 			if(err) throw err;
 			if(res){			
@@ -36,7 +35,7 @@ export function activate(context: vscode.ExtensionContext) {
 					console.log('something is wrong');
 					wstream.close();
 				});
-				console.log("RES 성공");			
+				console.log("RES 성공");	
 			}
 			console.log('Done');
 		});		
