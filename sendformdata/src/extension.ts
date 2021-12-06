@@ -15,12 +15,24 @@ export function activate(context: vscode.ExtensionContext) {
 		formdata.append('file', fs.createReadStream(items[0].path));
 		console.log(formdata);
 
-		formdata.submit('http://127.0.0.1:8000/rest_api_test/',function(err, res){
+		formdata.submit('http://127.0.0.1:8000/',function(err, res){
 			if(err) throw err;
 			if(res){
-				var wstream = fs.createWriteStream();
+				var wstream = fs.createWriteStream("/Users/hongjin-u/onnx_test_f/RESULT.txt");
+				
+				res.on('data',function(data){
+					wstream.write(data);
+				});
+				res.on('end',function(){
+					wstream.end();
+				});
+				res.on('error',function(err){
+					console.log('something is wrong');
+					wstream.close();
+				});
+				console.log("RES 성공");
 			}
-		})
+		});
 
 	});
 
