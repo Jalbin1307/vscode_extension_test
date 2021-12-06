@@ -10,7 +10,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:sendformdata.helloWorld"
+    "onCommand:sendformdata.helloWorld",
+    "onCommand:sendformdata.sendtext"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -18,6 +19,9 @@
       "explorer/context": [
         {
           "command": "sendformdata.helloWorld"
+        },
+        {
+          "command": "sendformdata.sendtext"
         }
       ]
     },
@@ -25,6 +29,10 @@
       {
         "command": "sendformdata.helloWorld",
         "title": "Send FormData"
+      },
+      {
+        "command": "sendformdata.sendtext",
+        "title": "Send TEXT"
       }
     ]
   },

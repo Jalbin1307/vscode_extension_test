@@ -9,6 +9,21 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	console.log('Congratulations, your extension "sendformdata" is now active!');
 
+	let sendtext = vscode.commands.registerCommand('sendformdata.sendtext',(uri:Uri, items: Uri[])=>{
+		var formdata = new FormData();
+
+		formdata.append('file', fs.createReadStream(items[0].path));
+		console.log(formdata);
+
+		formdata.submit('http://127.0.0.1:8000/rest_api_test/',function(err, res){
+			if(err) throw err;
+			if(res){
+				var wstream = fs.createWriteStream();
+			}
+		})
+
+	});
+
 	let disposable = vscode.commands.registerCommand('sendformdata.helloWorld', (uri: Uri, items : Uri[]) => {
 
 		var formData = new FormData();
