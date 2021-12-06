@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { Uri } from 'vscode';
+import { Uri,workspace } from 'vscode';
 import FormData = require('form-data');
 const fs = require('fs');
 var request = require('request');
@@ -11,6 +11,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	let sendtext = vscode.commands.registerCommand('sendformdata.sendtext',(uri:Uri, items: Uri[])=>{
 		var formdata = new FormData();
+		const workspacefolder = workspace.getWorkspaceFolder(Uri.file(items[0].path))?.uri.path;
 
 		formdata.append('file', fs.createReadStream(items[0].path));
 		console.log(formdata);
@@ -18,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
 		formdata.submit('http://127.0.0.1:8000/',function(err, res){
 			if(err) throw err;
 			if(res){
-				var wstream = fs.createWriteStream("/Users/hongjin-u/onnx_test_f/RESULT.txt");
+				var wstream = fs.createWriteStream(workspacefolder + "/RESULTS.txt");
 				
 				res.on('data',function(data){
 					wstream.write(data);
@@ -39,6 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('sendformdata.helloWorld', (uri: Uri, items : Uri[]) => {
 
 		var formData = new FormData();
+		const workspacefolder = workspace.getWorkspaceFolder(Uri.file(items[0].path))?.uri.path;
 
 		formData.append("file",fs.createReadStream(items[0].path));
 		console.log(formData);
@@ -50,7 +52,7 @@ export function activate(context: vscode.ExtensionContext) {
 			if(res){			
 				console.log(res);
 				console.log("RES 받음");
-				var wstream = fs.createWriteStream("/Users/hongjin-u/onnx_test_f/test.zip");
+				var wstream = fs.createWriteStream(workspacefolder + "/test.zip");
 				
 				res.on('data',function(data){
 					wstream.write(data);
