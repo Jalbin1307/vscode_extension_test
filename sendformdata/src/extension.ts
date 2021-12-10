@@ -47,7 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		//Local host :        http://127.0.0.1:8000/
 		//ONNX-CONNX Server : https://mysite-tscvl.run.goorm.io/
-		formData.submit('http://127.0.0.1:8000/rest_api_test/', function(err, res){
+		formData.submit('https://mysite-tscvl.run.goorm.io/rest_api_test/', function(err, res){
 			if(err) throw err;
 			if(res){			
 				console.log(res);
